@@ -5,7 +5,7 @@
       <p>{{ yamlData.description }}</p>
       <ul>
         <li v-for="(item, index) in yamlData.items" :key="index">
-          <strong>{{ item.name }}:</strong> {{ item.value }}
+          <strong>{{ item.name }}:</strong>
         </li>
       </ul>
     </div>
