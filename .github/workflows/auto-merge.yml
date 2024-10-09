@@ -12,11 +12,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Auto-merge PR
+        
+      - name: Configure Git
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git checkout master  # Change from main to master
-          git merge ${{ github.event.pull_request.head.ref }}
-          git push origin master  # Change from main to master
+          
+      - name: Merge PR
+        run: |
+          # Determine target branch from PR
+          TARGET_BRANCH=${{ github.event.pull_request.base.ref }}
+          
+          # Fetch the target branch and check it out
+          git fetch origin $TARGET_BRANCH
+          git checkout $TARGET_BRANCH
+          
+          # Merge the PR branch into the target branch
+          git merge ${{ github.event.pull_request.head.ref }} --no-edit
+          
+          # Push the changes back to the target branch
+          git push origin $TARGET_BRANCH
