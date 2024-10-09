@@ -1,7 +1,5 @@
-title: My YAML Data
-description: This is a sample description from the YAML file.
+title: ALiAS Talk git-101
+description: Add your names under the items tab as given
 items:
   - name: Tushar
-    value: 100
-  - name: Item 2
-    value: 200
+  - name: Ashish
