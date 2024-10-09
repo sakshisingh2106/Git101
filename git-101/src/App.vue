@@ -15,10 +15,8 @@ export default {
   }
 };
 </script>
-
 <style>
 /* Global Styles */
-
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -39,12 +37,14 @@ body {
 h1 {
   font-size: 2.5rem;
   color: #333;
+  margin-bottom: 20px;
 }
 
 p {
   font-size: 1.2rem;
   color: #666;
   line-height: 1.6;
+  margin-bottom: 30px;
 }
 
 ul {
