@@ -65,6 +65,9 @@ Once your pull request is merged, you can see your changes live at:
 
 [https://vercel.live/link/git-101-three.vercel.app?via=project-dashboard-alias-list&p=1](https://vercel.live/link/git-101-three.vercel.app?via=project-dashboard-alias-list&p=1)
 
+
+## Optional
+To ensure the mutiple PRs are accepted in a queue and there are no merge conflicts or sync issues in the Fork and Main repository, students are requested to utilize ./RUN.ps1 files to automate the above process
 ## Resources
 
 - [Git Documentation](https://git-scm.com/doc)
