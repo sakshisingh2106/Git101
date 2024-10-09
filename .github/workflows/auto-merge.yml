@@ -1,41 +1,29 @@
-name: Auto Merge PRs
-
+name: automerge
 on:
   pull_request:
     types:
-      - opened
+      - labeled
+      - unlabeled
       - synchronize
-
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
 jobs:
-  auto-merge:
+  automerge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Configure Git
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          
-      - name: Merge PR
-        run: |
-          # Determine target branch from PR
-          TARGET_BRANCH=${{ github.event.pull_request.base.ref }}
-          
-          # Fetch the target branch
-          git fetch origin $TARGET_BRANCH
-          
-          # Switch to the target branch
-          git switch $TARGET_BRANCH
-          
-          # Merge the PR branch into the target branch
-          if git merge ${{ github.event.pull_request.head.ref }} --no-edit; then
-            echo "Merge successful"
-          else
-            echo "Merge failed, check for conflicts"
-            exit 1
-          fi
-          
-          # Push the changes back to the target branch
-          git push origin $TARGET_BRANCH
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.16.4"
