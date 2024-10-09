@@ -23,12 +23,19 @@ jobs:
           # Determine target branch from PR
           TARGET_BRANCH=${{ github.event.pull_request.base.ref }}
           
-          # Fetch the target branch and check it out
+          # Fetch the target branch
           git fetch origin $TARGET_BRANCH
-          git checkout $TARGET_BRANCH
+          
+          # Switch to the target branch
+          git switch $TARGET_BRANCH
           
           # Merge the PR branch into the target branch
-          git merge ${{ github.event.pull_request.head.ref }} --no-edit
+          if git merge ${{ github.event.pull_request.head.ref }} --no-edit; then
+            echo "Merge successful"
+          else
+            echo "Merge failed, check for conflicts"
+            exit 1
+          fi
           
           # Push the changes back to the target branch
           git push origin $TARGET_BRANCH
