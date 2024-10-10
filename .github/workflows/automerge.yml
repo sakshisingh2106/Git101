@@ -20,7 +20,7 @@ jobs:
       - name: Fetch Upstream and Sync Fork
         run: |
           # Add upstream remote to sync changes from the main repository
-          git remote add upstream https://github.com/<YOUR_REPO_OWNER>/<YOUR_REPO_NAME>.git
+          git remote add upstream https://github.com/justushar/Git101.git
 
           # Fetch the latest changes from upstream main branch
           git fetch upstream
