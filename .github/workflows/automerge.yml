@@ -1,14 +1,31 @@
-name: Enable Automerge
+name: automerge
 on:
   pull_request:
-    branches:
-    - main
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
 jobs:
-  Enable-Automerge:
+  automerge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - name: Auto Merge
-        run: gh pr merge --auto --merge "$PR_URL"
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.16.4"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GH_TOKEN}}
+          GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
