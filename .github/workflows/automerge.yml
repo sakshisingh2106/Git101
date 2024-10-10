@@ -1,43 +1,13 @@
-name: Enable Automerge and Sync Fork
-
+name: Enable Automerge
 on:
   pull_request:
     branches:
-      - main
-
-permissions:
-  contents: write  # Give the GitHub Actions bot push access
-
+    - main
 jobs:
   Enable-Automerge:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        
-      - name: Configure Git
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-
-      - name: Fetch Upstream and Sync Fork
-        run: |
-          # Add upstream remote to sync changes from the main repository
-          git remote add upstream https://github.com/justushar/Git101.git
-
-          # Fetch the latest changes from upstream main branch
-          git fetch upstream
-
-          # Checkout the PR branch (the branch that the PR is coming from)
-          git checkout ${{ github.event.pull_request.head.ref }}
-
-          # Rebase the PR branch on top of the latest upstream/main branch to avoid conflicts
-          git rebase upstream/main
-
-          # Push the changes back to the student's fork to update their PR branch
-          git push --force-with-lease
-
-      - name: Auto Merge PR
+      - name: Auto Merge
         run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
